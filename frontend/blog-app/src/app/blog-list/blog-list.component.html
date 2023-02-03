@@ -6,8 +6,9 @@
   <div class="card-body">
     <h4 class="card-title">{{ blog.title }}</h4>
     <h6 class="card-subtitle mb-2 text-muted">{{ blog.author }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{ blog.formattedDate }}</h6>
     <p class="card-text">
-      {{ blog.content }}
+      {{ blog.preview }}
     </p>
     <div class="d-flex justify-content-end">
       <a [routerLink]="['/readmore', blog._id]"

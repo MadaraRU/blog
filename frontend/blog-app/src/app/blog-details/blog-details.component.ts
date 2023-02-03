@@ -25,7 +25,7 @@ export class BlogDetailsComponent implements OnInit {
       .subscribe(data => {
         this.blog.push(data);
         console.log(this.blog)
-        this.formattedDate = this.datePipe.transform(this.blog[0]?.created_at, 'MM/dd/yyyy hh:mm:ss');
+        this.formattedDate = this.datePipe.transform(this.blog[0]?.created_at, 'MMM d, y, h:mm:ss a');
       });
 
   }

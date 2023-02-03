@@ -1,3 +1,42 @@
 <div class="my-4 mx-4">
   <a [routerLink]="['/']"><i class="bi bi-arrow-left"></i> Go Back</a>
 </div>
+
+<form class="w-50 mx-auto" [formGroup]="reactiveForm">
+  <div class="card add-card p-5">
+    <div class="mb-3">
+      <p class="fs-1 text-center fw-bold text-primary">Add Blog</p>
+      <p class="text-center">Express your thoughts in different topics</p>
+    </div>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        formControlName="author"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <textarea
+        class="form-control"
+        id="content"
+        formControlName="content"
+      ></textarea>
+    </div>
+    <button class="btn btn-primary btn-lg mx-auto" (click)="onSubmit()">
+      Submit
+    </button>
+  </div>
+</form>
