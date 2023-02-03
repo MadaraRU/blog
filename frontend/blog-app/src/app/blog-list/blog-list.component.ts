@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface Blog {
-  title: string;
-  content: string;
-  author: string;
-  upvotes?: number;
-  downvotes?: number;
-}
-
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
@@ -16,18 +8,17 @@ interface Blog {
 })
 export class BlogListComponent {
   blogs: any;
-  test: any
 
   constructor(private http: HttpClient) { }
 
   fetchData() {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/1')
+    return this.http.get('http://localhost:8000/api/blogs')
   }
 
   ngOnInit() {
     this.fetchData().subscribe(res => {
-      this.test = res
-      console.log(this.test)
+      this.blogs = res
+      console.log(this.blogs)
     })
 
   }

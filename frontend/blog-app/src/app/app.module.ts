@@ -6,19 +6,26 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BlogListComponent } from './blog-list/blog-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BlogDetailsComponent } from './blog-details/blog-details.component';
+import { DatePipe } from '@angular/common';
+import { AddBlogComponent } from './add-blog/add-blog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    BlogListComponent
+    BlogListComponent,
+    BlogDetailsComponent,
+    AddBlogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

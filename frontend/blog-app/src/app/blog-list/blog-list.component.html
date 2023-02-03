@@ -1,12 +1,28 @@
-<div class="card my-5 w-75 mx-auto">
+<div *ngIf="blogs?.length === 0" class="d-flex justify-content-center my-3">
+  <p class="fs-3">No blog posts are available, feel free to add one</p>
+</div>
+
+<div class="card my-5 w-50 mx-auto" *ngFor="let blog of blogs">
   <div class="card-body">
-    <h4 class="card-title">{{test.title}}</h4>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <h4 class="card-title">{{ blog.title }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ blog.author }}</h6>
     <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
+      {{ blog.content }}
     </p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <div class="d-flex justify-content-end">
+      <a [routerLink]="['/readmore', blog._id]"
+        >Read more <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+    <div class="d-flex">
+      <p class="text-success">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        5
+      </p>
+      <p class="mx-1 text-danger">
+        <i class="bi bi-hand-thumbs-down-fill"></i>
+        6
+      </p>
+    </div>
   </div>
 </div>

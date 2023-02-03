@@ -1,0 +1,14 @@
+<div class="my-4 mx-4">
+  <a [routerLink]="['/']"><i class="bi bi-arrow-left"></i> Go Back</a>
+</div>
+
+<div class="card text-center w-50 my-5 mx-auto" *ngFor="let elem of blog">
+  <div class="card-header">{{ elem.author }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ elem.title }}</h5>
+    <p class="card-text">
+      {{ elem.content }}
+    </p>
+  </div>
+  <div class="card-footer text-muted">{{ formattedDate }}</div>
+</div>
