@@ -12,15 +12,14 @@ import { BlogService } from '../services/blog.service';
 export class AddBlogComponent {
 
   reactiveForm: FormGroup
-  formError: any
 
-  constructor(private http: HttpClient, private router: Router, private blogService: BlogService) { }
+  constructor(private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
     this.reactiveForm = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      author: new FormControl(null, [Validators.required]),
-      content: new FormControl(null, [Validators.required])
+      title: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      author: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      content: new FormControl(null, [Validators.required, Validators.minLength(10)])
 
     })
   }
@@ -34,10 +33,9 @@ export class AddBlogComponent {
         }
       },
       error: err => {
-        this.formError = err
-        console.log(this.formError.error)
         return
       },
+
     })
   }
 

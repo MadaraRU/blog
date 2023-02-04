@@ -14,7 +14,7 @@ import { BlogService } from '../services/blog.service';
 export class BlogListComponent {
   blogs: any;
   searchResult: any
-  selectedSortOption = '';
+  selectedSortOption = 'new';
 
   constructor(private datePipe: DatePipe, private sortPipe: SortPipe, private blogService: BlogService) {
 

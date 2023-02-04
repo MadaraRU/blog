@@ -17,7 +17,25 @@
         id="title"
         formControlName="title"
       />
+
+      <div
+        *ngIf="
+          reactiveForm.get('title').invalid && reactiveForm.get('title').touched
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('title').errors['required']"
+          >Title is required</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('title').errors['minlength']"
+          >"Ensure this value has at least 3 characters"</small
+        >
+      </div>
     </div>
+
     <div class="mb-3">
       <label for="author" class="form-label">Author</label>
       <input
@@ -26,6 +44,23 @@
         id="author"
         formControlName="author"
       />
+      <div
+        *ngIf="
+          reactiveForm.get('author').invalid &&
+          reactiveForm.get('author').touched
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('author').errors['required']"
+          >author is required</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('author').errors['minlength']"
+          >"Ensure this value has at least 3 characters"</small
+        >
+      </div>
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">Content</label>
@@ -34,6 +69,23 @@
         id="content"
         formControlName="content"
       ></textarea>
+      <div
+        *ngIf="
+          reactiveForm.get('content').invalid &&
+          reactiveForm.get('content').touched
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('content').errors['required']"
+          >content is required</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="reactiveForm.get('content').errors['minlength']"
+          >"Ensure this value has at least 10 characters"</small
+        >
+      </div>
     </div>
     <button class="btn btn-primary btn-lg mx-auto" (click)="onSubmit()">
       Submit
