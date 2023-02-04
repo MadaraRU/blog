@@ -1,0 +1,9 @@
+<div class="form-group">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search by title, author, or content"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchTermChange()"
+  />
+</div>

@@ -2,9 +2,24 @@
   <p class="fs-3">No blog posts are available, feel free to add one</p>
 </div>
 
+<div class="container w-50 my-4 d-flex justify-content-between">
+  <app-search (search)="handleSearch($event)"></app-search>
+  <app-sort
+    [blogs]="searchResult || blogs"
+    (sortedBlogs)="handleSortedBlogs($event)"
+  ></app-sort>
+</div>
+
+<div
+  *ngIf="searchResult?.length === 0 && searchResult"
+  class="d-flex justify-content-center my-3"
+>
+  <p class="fs-3">No results found. Please try a different search</p>
+</div>
+
 <div
   class="card my-5 w-50 mx-auto"
-  *ngFor="let blog of blogs"
+  *ngFor="let blog of searchResult || blogs | sort : selectedSortOption"
   [ngClass]="{
     'border-danger': blog.downvotes > blog.upvotes,
     'border-success': blog.downvotes < blog.upvotes

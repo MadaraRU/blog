@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BlogService } from '../services/blog.service';
 
 @Component({
   selector: 'app-add-blog',
@@ -11,8 +12,9 @@ import { Router } from '@angular/router';
 export class AddBlogComponent {
 
   reactiveForm: FormGroup
+  formError: any
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
     this.reactiveForm = new FormGroup({
@@ -25,15 +27,15 @@ export class AddBlogComponent {
 
   onSubmit() {
     const blogInputs = this.reactiveForm.value;
-    console.log(blogInputs)
-    this.http.post('http://localhost:8000/api/blogs', blogInputs).subscribe({
+    this.blogService.addBlog(blogInputs).subscribe({
       next: res => {
         if (res) {
           this.router.navigate(['/'])
         }
       },
-      error(err) {
-        console.log(err)
+      error: err => {
+        this.formError = err
+        console.log(this.formError.error)
         return
       },
     })

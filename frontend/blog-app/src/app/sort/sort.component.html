@@ -1,0 +1,11 @@
+<div>
+  <select
+    class="form-select"
+    [(ngModel)]="selectedSortOption"
+    (change)="sortBlogs()"
+  >
+    <option value="">Sort by</option>
+    <option value="new">Newest first</option>
+    <option value="old">Oldest first</option>
+  </select>
+</div>

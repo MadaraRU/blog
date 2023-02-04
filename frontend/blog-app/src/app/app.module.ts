@@ -9,9 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { DatePipe } from '@angular/common';
 import { AddBlogComponent } from './add-blog/add-blog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpvoteComponent } from './upvote/upvote.component';
 import { DownvoteComponent } from './downvote/downvote.component';
+import { SortPipe } from './pipes/sort.pipe';
+import { SortComponent } from './sort/sort.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +24,17 @@ import { DownvoteComponent } from './downvote/downvote.component';
     BlogDetailsComponent,
     AddBlogComponent,
     UpvoteComponent,
-    DownvoteComponent
+    DownvoteComponent,
+    SortPipe,
+    SortComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

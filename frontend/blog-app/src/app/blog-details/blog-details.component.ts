@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { BlogService } from '../services/blog.service';
 
 @Component({
   selector: 'app-blog-details',
@@ -12,16 +13,12 @@ export class BlogDetailsComponent implements OnInit {
   blog: any = [];
   formattedDate: string | null = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe, private blogServie: BlogService) { }
 
-
-  fetchblog(id: string) {
-    return this.http.get(`http://localhost:8000/api/blogs/${id}`)
-  }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    this.fetchblog(id)
+    this.blogServie.getBlogById(id)
       .subscribe(data => {
         this.blog.push(data);
         console.log(this.blog)
@@ -31,13 +28,13 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   onUpvote(id) {
-    this.http.put(`http://localhost:8000/api/blogs/${id}/upvote`, {}).subscribe(() => {
+    this.blogServie.upvoteBlog(id).subscribe(() => {
       const index = this.blog.findIndex(elem => elem._id === id);
       this.blog[index].upvotes += 1;
     });
   }
   onDownvote(id) {
-    this.http.put(`http://localhost:8000/api/blogs/${id}/downvote`, {}).subscribe(() => {
+    this.blogServie.downvoteBlog(id).subscribe(() => {
       const index = this.blog.findIndex(elem => elem._id === id);
       this.blog[index].downvotes += 1;
     });
