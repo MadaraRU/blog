@@ -2,11 +2,20 @@
   <p class="fs-3">No blog posts are available, feel free to add one</p>
 </div>
 
-<div class="card my-5 w-50 mx-auto" *ngFor="let blog of blogs">
+<div
+  class="card my-5 w-50 mx-auto"
+  *ngFor="let blog of blogs"
+  [ngClass]="{
+    'border-danger': blog.downvotes > blog.upvotes,
+    'border-success': blog.downvotes < blog.upvotes
+  }"
+>
   <div class="card-body">
     <h4 class="card-title">{{ blog.title }}</h4>
-    <h6 class="card-subtitle mb-2 text-muted">{{ blog.author }}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">{{ blog.formattedDate }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">by {{ blog.author }},</h6>
+    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-end">
+      {{ blog.formattedDate }}
+    </h6>
     <p class="card-text">
       {{ blog.preview }}
     </p>
@@ -16,14 +25,17 @@
       </a>
     </div>
     <div class="d-flex">
-      <p class="text-success">
-        <i class="bi bi-hand-thumbs-up-fill"></i>
-        5
-      </p>
-      <p class="mx-1 text-danger">
-        <i class="bi bi-hand-thumbs-down-fill"></i>
-        6
-      </p>
+      <app-upvote
+        [id]="blog._id"
+        [upvotes]="blog.upvotes"
+        (vote)="onUpvote($event)"
+      ></app-upvote>
+
+      <app-downvote
+        [id]="blog._id"
+        [downvotes]="blog.downvotes"
+        (vote)="onDownvote($event)"
+      ></app-downvote>
     </div>
   </div>
 </div>

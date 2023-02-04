@@ -30,4 +30,17 @@ export class BlogDetailsComponent implements OnInit {
 
   }
 
+  onUpvote(id) {
+    this.http.put(`http://localhost:8000/api/blogs/${id}/upvote`, {}).subscribe(() => {
+      const index = this.blog.findIndex(elem => elem._id === id);
+      this.blog[index].upvotes += 1;
+    });
+  }
+  onDownvote(id) {
+    this.http.put(`http://localhost:8000/api/blogs/${id}/downvote`, {}).subscribe(() => {
+      const index = this.blog.findIndex(elem => elem._id === id);
+      this.blog[index].downvotes += 1;
+    });
+  }
+
 }

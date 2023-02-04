@@ -10,6 +10,8 @@ import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { DatePipe } from '@angular/common';
 import { AddBlogComponent } from './add-blog/add-blog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UpvoteComponent } from './upvote/upvote.component';
+import { DownvoteComponent } from './downvote/downvote.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     BlogListComponent,
     BlogDetailsComponent,
-    AddBlogComponent
+    AddBlogComponent,
+    UpvoteComponent,
+    DownvoteComponent
   ],
   imports: [
     BrowserModule,

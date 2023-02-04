@@ -2,7 +2,7 @@
   <a [routerLink]="['/']"><i class="bi bi-arrow-left"></i> Go Back</a>
 </div>
 
-<div class="card text-center w-50 my-5 mx-auto" *ngFor="let elem of blog">
+<!-- <div class="card text-center w-50 my-5 mx-auto" *ngFor="let elem of blog">
   <div class="card-header">{{ elem.author }}</div>
   <div class="card-body">
     <h5 class="card-title">{{ elem.title }}</h5>
@@ -11,4 +11,25 @@
     </p>
   </div>
   <div class="card-footer text-muted">{{ formattedDate }}</div>
+</div> -->
+
+<div class="card w-50 my-5 mx-auto" *ngFor="let elem of blog">
+  <div class="card-body">
+    <h3 class="card-title my-3">{{ elem.title }}</h3>
+    <h6 class="card-subtitle mb-2 text-muted">By {{ elem.author }},</h6>
+    <h6 class="card-subtitle mb-3 text-muted">In {{ formattedDate }}</h6>
+    <p class="card-text">{{ elem.content }}</p>
+    <div class="d-flex">
+      <app-upvote
+        [id]="elem._id"
+        [upvotes]="elem.upvotes"
+        (vote)="onUpvote($event)"
+      ></app-upvote>
+      <app-downvote
+        [id]="elem._id"
+        [downvotes]="elem.downvotes"
+        (vote)="onDownvote($event)"
+      ></app-downvote>
+    </div>
+  </div>
 </div>

@@ -31,8 +31,19 @@ export class BlogListComponent {
       console.log(this.blogs)
 
     })
-
   }
 
+  onUpvote(id) {
+    this.http.put(`http://localhost:8000/api/blogs/${id}/upvote`, {}).subscribe(() => {
+      const index = this.blogs.findIndex(blog => blog._id === id);
+      this.blogs[index].upvotes += 1;
+    });
+  }
+  onDownvote(id) {
+    this.http.put(`http://localhost:8000/api/blogs/${id}/downvote`, {}).subscribe(() => {
+      const index = this.blogs.findIndex(blog => blog._id === id);
+      this.blogs[index].downvotes += 1;
+    });
+  }
 
 }
