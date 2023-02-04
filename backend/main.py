@@ -1,9 +1,17 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, HTTPException
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MONGO_URI = os.getenv('MONGO_URI')
+
+print(MONGO_URI)
 
 app = FastAPI()
 
@@ -20,8 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = MongoClient(
-    "mongodb+srv://mk_aloui:blog_elyadata@cluster0.frssgm7.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(MONGO_URI)
 db = client["blog_db"]
 collection = db["blog"]
 
@@ -49,10 +56,24 @@ async def get_blog(blog_id: str):
 
 @app.post("/api/blogs")
 async def add_blog(
-    title: str = Body(..., embed=True),
-    author: str = Body(..., embed=True),
-    content: str = Body(..., embed=True)
+    title: str = Body(..., embed=True, min_length=3, max_length=100),
+    author: str = Body(..., embed=True, min_length=3, max_length=100),
+    content: str = Body(..., embed=True, min_length=10)
+
 ):
+    if not title:
+        raise HTTPException(status_code=400, detail="Title is required")
+
+    if not author:
+        raise HTTPException(status_code=400, detail="Author is required")
+
+    if not content:
+        raise HTTPException(status_code=400, detail="Content is required")
+
+    if not title or not author or not content:
+        raise HTTPException(
+            status_code=400, detail="Title, author, and content are required")
+
     blog = {
         "title": title,
         "author": author,
@@ -66,7 +87,7 @@ async def add_blog(
     return {"message": "Blog created successfully!"}
 
 
-@app.put("/blogs/{blog_id}/upvote")
+@app.put("/api/blogs/{blog_id}/upvote")
 async def upvote_blog(blog_id: str):
     result = collection.update_one({"_id": ObjectId(blog_id)}, {
                                    "$inc": {"upvotes": 1}})
@@ -76,7 +97,7 @@ async def upvote_blog(blog_id: str):
         return {"message": "Blog not found"}
 
 
-@app.put("/blogs/{blog_id}/downvote")
+@app.put("/api/blogs/{blog_id}/downvote")
 async def downvote_blog(blog_id: str):
     result = collection.update_one({"_id": ObjectId(blog_id)}, {
                                    "$inc": {"downvotes": 1}})
